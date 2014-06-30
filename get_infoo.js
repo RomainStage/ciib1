@@ -6,7 +6,7 @@ var EventEmitter = require('events').EventEmitter;
 var evenement = new EventEmitter();
 var i = 0;
 var fax = new Array();
-var nombre = 520000000;
+var nombre = 520000185;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 evenement.on("debut", function(){
 /*fs.readFile('./siren.json', 'utf-8', 'r+', function (err, data) { //----------------------------------------------------------GREG
