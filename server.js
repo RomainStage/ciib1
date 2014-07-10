@@ -11,7 +11,7 @@ var startKeepAlive = function startKeepAlive() {
     	console.log("ma fct");
         var options = {
             host: 'fathomless-anchorage-2997.herokuapp.com',
-            port: 8080,
+            port: server.port,
             path: '/'
         };
         http.get(options, function(res) {
@@ -31,7 +31,7 @@ var startKeepAlive = function startKeepAlive() {
 startKeepAlive();
 
 var server = {}; //Server object. This object is use to stock everything owned by the server.
-server.r = require("./router.js"); server.port = ( 8080);
+server.r = require("./router.js"); server.port = (process.env.PORT || 8080);
 server.address = "0.0.0.0";
 /**
 * This method is called each times a request arrives on the server * @param req (Object) request object for this request
