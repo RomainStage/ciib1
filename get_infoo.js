@@ -8,6 +8,14 @@ var i = 0;
 var fax = new Array();
 var nombre = 520157421;
 
+process.on('uncaughtException', function(err) {
+	console.log('---------------------Une rerreur c est produite----------------------------------------');
+	console.log('Caught exception: ' + err);
+	nombre ++;
+	console.log('-----------------je suis tjr vivant!!!!!!----------------------------------------------------');
+	evenement.emit("debut");
+  
+});
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 evenement.on("debut", function(){
