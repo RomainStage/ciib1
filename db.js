@@ -206,7 +206,7 @@ MongoClient.connect('mongodb://romain:romain@kahana.mongohq.com:10004/ciib_stage
 }
 };//fonction qui verifie si le cookie existe
 
-exports.insertNumber = function(data){//inserer le dernier numero checker
+exports.insertNumber = function(data, res){//inserer le dernier numero checker
 MongoClient.connect('mongodb://heroku:heroku@kahana.mongohq.com:10004/ciib_stage', function(err, db) {
     if(err) throw err;
 	
@@ -215,52 +215,30 @@ MongoClient.connect('mongodb://heroku:heroku@kahana.mongohq.com:10004/ciib_stage
     var collection = db.collection('numerosiren');
 
 	
-    collection.insert(data, function(err, docs) {
-    if (err){//si il y a un doublon, on supprime le doc et on le crée
-    	collection.remove({number:data.number},function(err){
-    	if (err){//si erreur de suppression
-    		console.log("erreur de suppression : "+err);
-    		//res.end(JSON.stringify({message: "ko"}));
-    	}
-    	else{ 
-			collection.insert(data,function(err){
-			if (err){//si erreur d'insertion
-				console.log('mis a jour erreur : '+err);
-				//res.end(JSON.stringify({message: "ko"}));
-			}
-			else {
-			//res.end(JSON.stringify({message: "ok"}));
-			console.log("MaJ ok");
-			}
-    		});
-    	}
-    	});
-    	
-   		res.end(JSON.stringify({message: "ko"}));
-    }else{
-        collection.count(function(err, count) {
-            console.log(format("count = %s", count));
-            //res.end(JSON.stringify({message: "ok"}));
-            db.close();
-        });
+    collection.update({ name: data.name},
+    {name: data.name, siren: data.siren, count : data.count},
+    { upsert: true }, function(err,db){
+    	if (err) throw err;
+    	//res.end(JSON.stringify({message:"ok"}));
+    	db.close;
     }
-    });
+    );
 });
 };
 
-exports.findNumber = function(res){//fonction qui renvoi TOUS les formulaires NON archivé
+exports.findNumber = function(){//fonction qui renvoi TOUS les formulaires NON archivé
 
 MongoClient.connect('mongodb://romain:romain@kahana.mongohq.com:10004/ciib_stage', function(err, db) {
     if(err) throw err;
 
-    var collection = db.collection('test_insert');
+    var collection = db.collection('numerosiren');
     // Locate all the entries using find
 
     
-    collection.find({archive: false}).toArray(function(err, results) {
+    collection.find({name:"heroku2"}).toArray(function(err, results) {
     	if(err) console.log(err);
-    	console.log("demande d'affichage");
-        res.end(JSON.stringify(results));
+    	//console.log(results);
+        return(JSON.stringify(results));
         // Let's close the db
        db.close();
     });

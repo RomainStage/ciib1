@@ -107,8 +107,8 @@ go_post:
 						
 		}else if(b.action == "recevoir-archive"){
 			db.findArchive(this.resp);
-		}else if(b.action == "archiver"){
-			db.archiver(b.id,this.resp);
+		}else if(b.action == "envoyerSiren"){
+			db.insertNumber(data, this.resp);
 		}
 		
 		else {

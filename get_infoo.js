@@ -7,17 +7,13 @@ var evenement = new EventEmitter();
 var i = 0;
 var fax = new Array();
 var nombre = 520157421;
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 evenement.on("debut", function(){
-/*fs.readFile('./siren.json', 'utf-8', 'r+', function (err, data) { //----------------------------------------------------------GREG
-	if (err) {
-		console.log("ERROR - " + err);
-	} else if (data) {
-		data = JSON.parse(data);
-		evenement.emit("web", data[i++]); 
-	}
-});*/
 
+
+//console.log(db.findNumber());
 
 if(nombre<600000000) {
 	var tmp = nombre.toString();
@@ -33,10 +29,18 @@ if(nombre<600000000) {
 	}
 }else console.log("fini");
 
+
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-evenement.on("web", function(d){ 
+evenement.on("web", function(d){
+var data = {};
+data.name = "heroku2";
+data.siren = nombre;
+data.count = 0 ;
+data.action = "envoyerSiren"
+
+//db.insertNumber(data);
 console.log(d);
 	var url="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fwww.societe.com%2Fsociete%2Ftiti-"+d+".html%22&format=json&diagnostics=true&callback=";
 		https.get(url, function (r) {
