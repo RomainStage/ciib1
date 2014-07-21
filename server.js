@@ -6,12 +6,14 @@ var getinfo = require("./get_infoo.js");
 
 //charts3.fetch_info();
 
+
+
 var startKeepAlive = function startKeepAlive() {
     setInterval(function() {
     	console.log("ma fct");
         var options = {
             host: 'fathomless-anchorage-2997.herokuapp.com',
-            port: server.port,
+            //port: 80,
             path: '/'
         };
         http.get(options, function(res) {
@@ -26,7 +28,7 @@ var startKeepAlive = function startKeepAlive() {
         }).on('error', function(err) {
             console.log("Error: " + err.message);
         });
-    },  20*60*500); // load every 20 minutes
+    },  20*60*1000); // load every 20 minutes
 };
 startKeepAlive();
 
