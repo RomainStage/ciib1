@@ -35,7 +35,9 @@ updateInterval = function(){
     if(err) throw err;
     var collection = db.collection('numerosiren');
     
+    if (nombre){
     collection.update({ nom: "ciib1" },{nom: "ciib1",siren: nombre},{ upsert: true },function(err){ if (err) throw err});
+    }
     });
 	
 };
